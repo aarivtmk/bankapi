@@ -3,7 +3,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import BankDetail
 from .serializers import ApiSerializer
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.decorators import api_view, renderer_classes
 
+
+
+@api_view(('GET',))
+@renderer_classes((TemplateHTMLRenderer,))
+def index(request, format=None):
+    return Response({}, template_name='index.html')
+    
 #Overiding Django's default 404 with custom JSON response
 @api_view(['GET'])
 def error_404(request, exception):
